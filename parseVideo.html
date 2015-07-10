@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+		<title>extract video pHashes</title>
+		
+		<style>
+			body {
+				font-family: sans-serif;
+			}
+			
+			label {
+				font-weight: bold;
+				display: inline-block;
+				width: 7em;
+			}
+			
+			span {
+				font-family: monospace;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<h1>extract video pHashes</h1>
+		
+		<div>
+			<a href="parseVideo.html">parse</a> |
+			<a href="searchVideo.html">search</a>
+		</div>
+	
+		<h3>example videos:</h3>
+		<ul>
+			<!--<li><a href="?http://rd3.videos.sapo.pt/i0Az39C8OSy6vO0rEtbk/mov/1">aulas ginastica criancas</a></li>
+			<li><a href="?http://rd3.videos.sapo.pt/uWMr3C8FQZE5FWwCLZTc/mov/1">jogadora vietnamita marca cantos</a></li>-->
+			
+			<li><a href="?videos/i0Az39C8OSy6vO0rEtbk.mp4">aulas ginastica criancas</a></li>
+			<li><a href="?videos/uWMr3C8FQZE5FWwCLZTc.mp4">jogadora vietnamita marca cantos</a></li>
+		</ul>
+		<label>custom video:</label><input id="videoUrl"></input><button onclick="location.href = '?' + QS('#videoUrl').value">submit</button>
+		
+		<hr/>
+
+		<video></video><br/>
+		<label for="title">title:</label><span id="title"> </span><br/>
+		<label for="t">time:</label><span id="t"> </span> / <span id="d"> </span><br/>
+		<label for="progress">progress:</label><span id="progress"> </span> %<br/>
+		<label for="hash">hash:</label><span id="hash"> </span><br/>
+		<label for="c">thumb:</label><canvas id="c"></canvas><br/>
+		
+		<button onclick="saveVideoShot(QS('#title').innerHTML, QS('video'), QS('canvas'))">save screenshot</button>
+
+		<script src="pHash.js"></script>
+		<script src="saveVideoShot.js"></script>
+		
+		<script src="parseVideo.js"></script>
+	</body>
+</html>
