@@ -1,12 +1,8 @@
 (function(w) {
 	'use strict';
 	
-	
-	
-	w.QS = function(sel) { return document.querySelector(sel); };
-	
-	
-	
+
+
 	var input = QS('input');
 	var submittedImg = QS('#c1');
 	var pHashImg = QS('#c2');
@@ -62,29 +58,13 @@
 		var best = top[0];
 		showVideo(best.v, best.t);
 	};
-	
-	
-	
-	input.addEventListener('change', function (ev) {
-		var reader = new FileReader();
-		
-		reader.onload = function(ev) {
-			var img = new Image();
-			img.onload = function() {
-				submittedImg.width = img.width;
-				submittedImg.height = img.height;
-				var ctx = submittedImg.getContext('2d');
-				ctx.drawImage(img, 0, 0);
-				
-				var hash = pHash(submittedImg, pHashImg);
-				
-				lookForHash(hash, ALL_RESULTS);
-			}
-			
-			img.src = ev.target.result;
-		}
-		reader.readAsDataURL(ev.target.files[0]);     
+
+
+
+	w.fetchImageToCanvas(input, submittedImg, function() {
+		var hash = pHash(submittedImg, pHashImg);
+		lookForHash(hash, ALL_RESULTS);
 	});
-	
+
 
 })(this);

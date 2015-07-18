@@ -1,9 +1,8 @@
 (function(w) {
 	'use strict';
 	
-	
-	
-	w.QS = function(sel) { return document.querySelector(sel); };
+
+
 	var setV = function(el, v) { el.firstChild.nodeValue =  ((typeof v === 'number') ? v.toFixed(2) : v); };
 	
 	
