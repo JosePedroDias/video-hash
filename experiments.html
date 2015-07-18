@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>experiments</title>
+
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>search for video from a given image</h1>
+
+        <div>
+            <a href="parseVideo.html">parse</a> |
+            <a href="searchVideo.html">search</a>
+        </div>
+
+        <br/>
+
+        <input type="file"><br/>
+        <canvas id="c1"></canvas>
+        <canvas id="c2"></canvas>
+
+        <script src="common.js"></script>
+        <script src="pHash.js"></script>
+        <script src="rgb2lab.js"></script>
+        <script src="histogram.js"></script>
+        <script src="experiments.js"></script>
+    </body>
+</html>
