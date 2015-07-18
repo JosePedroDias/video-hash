@@ -47,8 +47,11 @@ https://github.com/gmarty/Mozilla-Dev-Derby-2011-07
 rgb2lab
 https://github.com/gka/chroma.js/blob/master/chroma.js
 
-rgb2lab 2?
+?rgb2lab 2?
 http://stackoverflow.com/questions/13405956/convert-an-image-rgb-lab-with-python
+
+histogram
+me
 
 dct
 https://github.com/vail-systems/node-dct/blob/master/src/dct.js

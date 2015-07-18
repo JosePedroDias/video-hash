@@ -1,123 +1,81 @@
 (function (w) {
     'use strict';
 
-    // https://raw.githubusercontent.com/Munter/node-histogram/master/lib/index.js
+    w.rgbToHex = function(r, g, b) {
+        return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    };
 
-    var Canvas,
-        getCanvasImageData = function (imageBuffer, callback) {
-            var canvasImage = new Canvas.Image();
-
-            canvasImage.onerror = function () {
-                callback(new Error('error while reading from input stream'));
-            };
-            canvasImage.onload = function () {
-                var context = new Canvas(canvasImage.width, canvasImage.height).getContext('2d');
-                context.drawImage(canvasImage, 0, 0);
-                callback(null, context.getImageData(0, 0, canvasImage.width, canvasImage.height).data);
-            };
-            canvasImage.src = imageBuffer;
-        },
-        histogram = function (imageBuffer, callback) {
-            if (['string', 'object'].indexOf(typeof imageBuffer) === -1) {
-                throw new TypeError('Expected imageBuffer to be a string or a buffer');
-            }
-
-            if (typeof callback !== 'function') {
-                throw new TypeError('Expected callback to be a function');
-            }
-
-            getCanvasImageData(imageBuffer, function (err, data) {
-                if (err) {
-                    return callback(err);
-                }
-
-                var hist = {
-                        red: new Array(256),
-                        green: new Array(256),
-                        blue: new Array(256),
-                        alpha: new Array(256),
-
-                        colors: {
-                            rgb: 0,
-                            rgba: 0
-                        },
-
-                        palettes: {
-                            rgb: [],
-                            rgba: []
-                        },
-
-                        greyscale: true,
-                        alphachannel: false
-                    },
-                    red,
-                    green,
-                    blue,
-                    alpha,
-                    hexmap = {},
-                    hexamap = {},
-                    i;
-
-                for (i = 0; i < 256; i += 1) {
-                    hist.red[i] =
-                        hist.green[i] =
-                            hist.blue[i] =
-                                hist.alpha[i] = 0;
-                }
-
-                for (i = 0; i < data.length; i += 4) {
-                    red   = data[i];
-                    green = data[i + 1];
-                    blue  = data[i + 2];
-                    alpha = data[i + 3];
-
-                    if (alpha < 255) {
-                        hist.alphachannel = true;
-                    }
-
-                    if (hist.greyscale && red !== green || red !== blue) {
-                        hist.greyscale = false;
-                    }
-
-                    hist.red[red]     += 1;
-                    hist.green[green] += 1;
-                    hist.blue[blue]   += 1;
-                    hist.alpha[alpha] += 1;
-
-                    var hexaString = (red * 0x1000000 + green * 0x10000 + blue * 0x100 + alpha).toString(16),
-                        hexa  = '#' + ('0000000'.substr(0, 8 - hexaString.length)) + hexaString,
-                        hex = hexa.substr(0, 7);
-
-                    if (!(hex in hexmap)) {
-                        hexmap[hex] = 1;
-                        hist.palettes.rgb.push(hex);
-                        hist.colors.rgb += 1;
-                    } else {
-                        hexmap[hex] += 1;
-                    }
-
-                    if (!(hexa in hexamap)) {
-                        hexamap[hexa] = 1;
-                        hist.palettes.rgba.push(hexa);
-                        hist.colors.rgba += 1;
-                    } else {
-                        hexamap[hexa] += 1;
-                    }
-
-                }
-
-                callback(null, hist);
-            });
+    w.histogram = function (data, all) {
+        var hist = {
+            r: new Array(256),
+            g: new Array(256),
+            b: new Array(256)
         };
+        var pal = [];
+        var map = {};
+        var k, r, g, b, i, l = data.length;
 
-    if (typeof exports === 'object') {
-        // Assume nodejs
-        Canvas = require('canvas');
-        module.exports = histogram;
+        for (i = 0; i < 256; ++i) {
+            hist.r[i] = hist.g[i] = hist.b[i] = 0;
+        }
+
+        for (i = 0; i < l; i += 4) {
+            r = data[i];
+            g = data[i + 1];
+            b = data[i + 2];
+
+            ++hist.r[r];
+            ++hist.g[g];
+            ++hist.b[b];
+
+            if (all) {
+                //k = [r, g, b].join('_');
+                k = w.rgbToHex(r, g, b);
+
+                if (!(k in map)) {
+                    map[k] = 1;
+                    pal.push(k);
+                }
+                else {
+                    ++map[k];
+                }
+            }
+        }
+
+        if (all) {
+            hist.pal = pal;
+            hist.map = map;
+        }
+
+        return hist;
+    };
+
+    var maxInArr = function(arr) {
+        return Math.max.apply(null, arr);
     }
-    else {
-        // Fall back to installing histogram in window scope
-        w.histogram = histogram;
-    }
+
+    w.histogramImage = function(hist, data) {
+        var maxR = maxInArr(hist.r);
+        var maxG = maxInArr(hist.g);
+        var maxB = maxInArr(hist.b);
+
+        var maxV = Math.max(maxR, maxG, maxB);
+        var s = 255 / maxV;
+
+        var r, g, b;
+        var x, y, i = 0;
+        for (x = 0; x < 256; ++x) {
+            r = hist.r[x] * s;
+            g = hist.g[x] * s;
+            b = hist.b[x] * s;
+            for (y = 0; y < 256; ++y) {
+                data[i]   = ((y <= r) ? 255 : 0);
+                data[i+1] = ((y <= g) ? 255 : 0);
+                data[i+2] = ((y <= b) ? 255 : 0);
+                data[i+3] = 255;
+                i += 4;
+            }
+        }
+    };
 
 }(this));
