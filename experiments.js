@@ -54,6 +54,19 @@
             id2_ = ctx2.getImageData(0, 0, 256, 256); id2 = id2_.data; // TODO or generate instead of fetch?
 
             var hist = w.histogram(id, false);
+
+            var mapLog = function(arr) {
+                return arr.map(function(v) {
+                    return Math.log(v);
+                });
+            };
+
+            hist = {
+                r: mapLog(hist.r),
+                g: mapLog(hist.g),
+                b: mapLog(hist.b)
+            };
+
             //console.log(hist);
             w.histogramImage(hist, id2);
         }
