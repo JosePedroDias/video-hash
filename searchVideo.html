@@ -10,10 +10,6 @@
 				font-family: sans-serif;
 			}
 
-            #c2 {
-                display: none;
-            }
-
             label {
                 font-weight: bold;
                 margin-top: 20px;
@@ -36,9 +32,8 @@
         <label for="frame">choose video frame to search here:</label>
 		<input type="file" id="frame"><br/>
 
-        <label for="c1">submitted image:</label>
-		<canvas id="c1"></canvas>
-		<canvas id="c2"></canvas>
+        <label>submitted image:</label>
+		<div id="preview"></div>
 
         <label for="vid">best guess:</label>
         <p id="result-text"></p>

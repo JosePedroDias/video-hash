@@ -133,13 +133,17 @@
 
 
 
-    w.showVideo = function(video, url, t) {
+    w.showVideo = function(video, url, t, controls) {
         if (t) {
             url += '#t=' + t;//.toString().replace('.', ',');
         }
 
         video.setAttribute('crossorigin', 'anonymous'); // https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
-        video.setAttribute('controls', '');
+
+        if (controls === true) {
+            video.setAttribute('controls', '');
+        }
+
         var source = document.createElement('source');
         source.setAttribute('type', 'video/mp4');
         source.setAttribute('src', url);
@@ -148,8 +152,8 @@
 
 
 
-    w.fetchImageToCanvas = function(input, canvasToPaintTo, cb) {
-        var submittedImg = canvasToPaintTo;
+    w.userImageToCanvas = function(input, cb) {
+        var canvas = document.createElement('canvas');
 
         input.addEventListener('change', function (ev) {
             var reader = new FileReader();
@@ -157,11 +161,11 @@
             reader.onload = function(ev) {
                 var img = new Image();
                 img.onload = function() {
-                    submittedImg.width = img.width;
-                    submittedImg.height = img.height;
-                    var ctx = submittedImg.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    var ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0);
-                    cb();
+                    cb(canvas);
                 }
 
                 img.src = ev.target.result;

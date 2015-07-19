@@ -15,7 +15,6 @@
 	
 	
 	var video = QS('video');
-	var canvas = QS('#c');
 	
 	var titleSpan = QS('#title');
 	var progressSpan = QS('#progress');
@@ -74,7 +73,7 @@
 			video.pause();
 			lastT = t;
 			
-			var hash = pHash(video, canvas);
+			var hash = w.pHash(video);
 			
 			setV(progressSpan, t * 100 / d );
 			setV(tSpan, t);
@@ -94,14 +93,8 @@
 		};
 		console.log( ['"', url, '": ', JSON.stringify(extendedResults),','].join('') );
 	});
-	
-	
-	
-	video.setAttribute('autoplay', '');
-	video.setAttribute('muted', '');
-	var source = document.createElement('source');
-	source.setAttribute('type', 'video/mp4');
-	source.setAttribute('src', url);
-	video.appendChild(source);
+
+    w.showVideo(video, url, undefined, false);
+    video.play();
 
 })(this);

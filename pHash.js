@@ -4,7 +4,8 @@
 	var size = 32;
 	var smallerSize = 8;
 	
-	w.pHash = function(img, canvas) {
+	w.pHash = function(img) {
+		var canvas = document.createElement('canvas');
 		var ctx = canvas.getContext('2d');
 
 		/* 1. Reduce size. 

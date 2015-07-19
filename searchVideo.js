@@ -4,8 +4,7 @@
 
 
 	var input = QS('input');
-	var submittedImg = QS('#c1');
-	var pHashImg = QS('#c2');
+    var preview = QS('#preview');
     var resultText = QS('#result-text');
 	var video = QS('video');
 
@@ -33,8 +32,10 @@
 
 
 
-	w.fetchImageToCanvas(input, submittedImg, function() {
-		var hash = pHash(submittedImg, pHashImg);
+	w.userImageToCanvas(input, function(submittedImg) {
+        preview.innerHTML = '';
+        preview.appendChild(submittedImg);
+		var hash = w.pHash(submittedImg);
 		lookForHash(hash, ALL_RESULTS);
 	});
 
