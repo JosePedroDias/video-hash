@@ -6,6 +6,7 @@
 	var input = QS('input');
 	var submittedImg = QS('#c1');
 	var pHashImg = QS('#c2');
+    var resultText = QS('#result-text');
 	var video = QS('video');
 	
 	
@@ -31,7 +32,7 @@
 		
 		var video, videoHashes, hash, time;
 		for (video in results) {
-			videoHashes = results[video];
+			videoHashes = results[video].pHashes;
 			
 			for (hash in videoHashes) {
 				time = videoHashes[hash];
@@ -54,6 +55,16 @@
 		console.log(top);
 		
 		var best = top[0];
+
+        var u = best.v + '#t=' + best.t;
+
+        resultText.innerHTML = [
+            '<b>video:</b> ', best.v, '<br/>',
+            '<b>time:</b> ', best.t.toFixed(2), ' s<br/>',
+            '<b>url:</b> <a href="', u, '">', u, '</a>', '<br/>',
+            '<b>different bits:</b> ', best.d, ' / 64 (', (best.d / 0.64).toFixed(2), ' %)'
+        ].join('');
+
 		showVideo(best.v, best.t);
 	};
 

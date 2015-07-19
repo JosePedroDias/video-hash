@@ -170,4 +170,15 @@
         });
     };
 
+
+
+    w.saveDataURI = function(dataURI, fileName) {
+        var aEl = document.createElement('a');
+        aEl.setAttribute('download', fileName);
+        aEl.href = dataURI;
+        document.body.appendChild(aEl);
+        aEl.click();
+        document.body.removeChild(aEl);
+    };
+
 })(this);

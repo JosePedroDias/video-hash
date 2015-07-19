@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>take shots</title>
+
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>take shots</h1>
+
+        <div>
+            <a href="parseVideo.html">parse</a> |
+            <a href="takeShots.html">shots</a> |
+            <a href="searchVideo.html">search</a>
+        </div>
+
+        <h3>example videos:</h3>
+        <ul>
+            <li><a href="?http://127.0.0.1:3000/uWMr3C8FQZE5FWwCLZTc.mp4">canto</a></li>
+            <li><a href="?http://127.0.0.1:3000/Tmp5uBmW6YwdRSGz478e.mp4">nikon</a></li>
+            <li><a href="?http://127.0.0.1:3000/N1HSPKjDUZhQ1r654EEA.mp4">gangnam</a></li>
+        </ul>
+        <label>custom video:</label><input id="videoUrl"><button onclick="location.href = '?' + QS('#videoUrl').value">submit</button>
+
+        <hr/>
+
+        <video crossorigin="anonymous"></video>
+        <button id="shot">save screenshot</button>
+
+        <script src="common.js"></script>
+        <script src="takeShots.js"></script>
+    </body>
+</html>

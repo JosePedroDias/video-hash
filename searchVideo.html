@@ -9,6 +9,16 @@
 			body {
 				font-family: sans-serif;
 			}
+
+            #c2 {
+                display: none;
+            }
+
+            label {
+                font-weight: bold;
+                margin-top: 20px;
+                display: block;
+            }
 		</style>
 	</head>
 	
@@ -17,14 +27,24 @@
 		
 		<div>
 			<a href="parseVideo.html">parse</a> |
+			<a href="takeShots.html">shots</a> |
 			<a href="searchVideo.html">search</a>
 		</div>
 		
 		<br/>
-		<input type="file"><br/>
+
+        <label for="frame">choose video frame to search here:</label><br/>
+		<input type="file" id="frame"><br/>
+
+        <label for="c1">submitted image:</label><br/>
 		<canvas id="c1"></canvas>
+
 		<canvas id="c2"></canvas>
-		<video></video>
+
+        <p id="result-text"></p>
+
+        <label for="vid">best guess:</label><br/>
+		<video id="vid"></video>
 
 		<script src="common.js"></script>
 		<script src="pHash.js"></script>

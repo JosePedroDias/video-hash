@@ -27,6 +27,7 @@
 		
 		<div>
 			<a href="parseVideo.html">parse</a> |
+			<a href="takeShots.html">shots</a> |
 			<a href="searchVideo.html">search</a>
 		</div>
 	
@@ -46,14 +47,11 @@
 		<label for="progress">progress:</label><span id="progress"> </span> %<br/>
 		<label for="hash">hash:</label><span id="hash"> </span><br/>
 		<label for="c">thumb:</label><canvas id="c"></canvas><br/>
-		
-		<button onclick="saveVideoShot(QS('#title').innerHTML, QS('video'), QS('canvas'))">save screenshot</button>
 
 		<script src="common.js"></script>
 		<script src="pHash.js"></script>
-		<script src="saveVideoShot.js"></script>
-		<script src="histogram.js"></script>
-        <script src="rgb2lab2.js"></script>
+		<!--<script src="histogram.js"></script>
+        <script src="rgb2lab2.js"></script>-->
 		<script src="parseVideo.js"></script>
 	</body>
 </html>

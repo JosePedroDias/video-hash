@@ -87,7 +87,12 @@
 	});
 	
 	video.addEventListener('ended', function() {
-		console.log( ['"', url, '": ', JSON.stringify(results),','].join('') );
+		var extendedResults = {
+			resolution: [video.videoWidth, video.videoHeight],
+			duration: d,
+			pHashes: results
+		};
+		console.log( ['"', url, '": ', JSON.stringify(extendedResults),','].join('') );
 	});
 	
 	
