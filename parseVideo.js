@@ -29,7 +29,7 @@
 	setV(titleSpan, url);
 
 
-	var summaryTimes;
+	//var summaryTimes;
 	
 	
 	
@@ -60,6 +60,13 @@
 
 			var histEl = w.generateHistogram(frameEl);
 			document.body.appendChild(histEl);
+		}*/
+
+		/*if (t > 2 && !w.done) {
+			var frameEl = w.canvasFromVideo(video);
+			w.toLAB(frameEl);
+			document.body.appendChild(frameEl);
+			w.done = true;
 		}*/
 
 		// phash

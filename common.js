@@ -93,6 +93,46 @@
 
 
 
+    w.cloneCanvas = function(c) {
+        var W = c.width;
+        var H = c.height;
+
+        var c2 = document.createElement('canvas');
+        c2.width = W;
+        c2.height = H;
+
+        c2.getContext('2d').drawImage(c, 0, 0, W, H);
+
+        return c2;
+    };
+
+
+
+    w.toLAB = function(c) {
+        var W = c.width;
+        var H = c.height;
+        var ctx = c.getContext('2d');
+
+        var id_  = ctx.getImageData(0, 0, W, H);
+        var id = id_.data;
+
+        var i, j, lab, l = W * H;
+        for (i = 0; i < l; ++i) {
+            j = i * 4;
+
+            lab = w.rgb2lab(id, j);
+
+            id[  j] = lab[0];
+            id[++j] = lab[1];
+            id[++j] = lab[2];
+            id[++j] = 255;
+        }
+
+        ctx.putImageData(id_, 0, 0);
+    };
+
+
+
     w.showVideo = function(video, url, t) {
         if (t) {
             url += '#t=' + t;//.toString().replace('.', ',');
