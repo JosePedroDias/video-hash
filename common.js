@@ -181,4 +181,33 @@
         document.body.removeChild(aEl);
     };
 
+
+
+    w.searchPHash = function(submittedHash, results) {
+        var data = [];
+
+        var video, videoHashes, hash, time;
+        for (video in results) {
+            videoHashes = results[video].pHashes;
+
+            for (hash in videoHashes) {
+                time = videoHashes[hash];
+                //console.log(video, time, hash);
+                data.push({
+                    d: pHashDistance(hash, submittedHash),
+                    v: video,
+                    t: time
+                });
+            }
+        }
+
+        data.sort(function(a, b) {
+            a = a.d;
+            b = b.d;
+            return ( (a < b) ? -1 : ((a > b) ? 1 : 0) );
+        });
+
+        return data;
+    };
+
 })(this);
