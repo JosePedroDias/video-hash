@@ -15,7 +15,7 @@
 	
 	
 	var video = QS('video');
-	var canvas = QS('canvas');
+	var canvas = QS('#c');
 	
 	var titleSpan = QS('#title');
 	var progressSpan = QS('#progress');
@@ -27,17 +27,42 @@
 	
 	var results = {};
 	setV(titleSpan, url);
+
+
+	var summaryTimes;
 	
 	
 	
 	video.addEventListener('durationchange', function() {
 		d = video.duration;
-
 		setV(dSpan, d);
+
+		// prepare summarizeTimes
+		/*var a = d/11;
+		var t = a/2;
+		summaryTimes = w.seq(10).map(function() {
+			var tt = t;
+			t += a;
+			return tt;
+		});
+		console.log(summaryTimes);*/
 	});
 	
 	video.addEventListener('timeupdate', function() {
 		var t = video.currentTime;
+
+		// summary and histogram
+		/*var nextST = summaryTimes[0];
+		if (isFinite(nextST) && t >= nextST) {
+			var frameEl = w.canvasFromVideo(video);
+			document.body.appendChild(frameEl);
+			summaryTimes.shift();
+
+			var histEl = w.generateHistogram(frameEl);
+			document.body.appendChild(histEl);
+		}*/
+
+		// phash
 		if (t >= lastT + dt) {
 			video.pause();
 			lastT = t;
