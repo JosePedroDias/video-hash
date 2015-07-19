@@ -7,11 +7,22 @@
 
 
 
+    w.fromSearch = function() {
+        var url = location.search.split('');
+        url.shift();
+        if (url[ url.length-1 ] === '/') { url.pop(); }
+        url = url.join('');
+        return decodeURIComponent(url);
+    };
+
+
+
     w.showVideo = function(video, url, t) {
         if (t) {
             url += '#t=' + t;//.toString().replace('.', ',');
         }
 
+        video.setAttribute('crossorigin', 'anonymous'); // https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
         video.setAttribute('controls', '');
         var source = document.createElement('source');
         source.setAttribute('type', 'video/mp4');

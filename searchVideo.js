@@ -44,8 +44,6 @@
 			}
 		}
 		
-		var getter = function(o) { return o.d; };
-		
 		data.sort(function(a, b) {
 			a = a.d;
 			b = b.d;

@@ -10,11 +10,7 @@
 	var dt = 1;
 	var lastT = -1;
 	
-	var url = location.search.split('');
-	url.shift();
-	if (url[ url.length-1 ] === '/') { url.pop(); }
-	url = url.join('');
-	url = decodeURIComponent(url);
+	var url = w.fromSearch();
 	
 	
 	
@@ -36,6 +32,7 @@
 	
 	video.addEventListener('durationchange', function() {
 		d = video.duration;
+
 		setV(dSpan, d);
 	});
 	

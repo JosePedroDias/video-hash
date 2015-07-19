@@ -16,6 +16,8 @@ you should parse the video locally or use a video URL with CORS, then fire it he
 
 <http://josepedrodias.github.io/video-hash/parseVideo.html>
 
+you can serve videos from the videos dir. just run the `server.js` file (`[sudo] npm install` at first use)
+
 
 
 ## search phase
@@ -42,7 +44,7 @@ basic pHash impl
 ??
 
 scene detection
-https://github.com/gmarty/Mozilla-Dev-Derby-2011-07
+http://gmarty.github.io/SCD.js/
 
 rgb2lab
 https://github.com/gka/chroma.js/blob/master/chroma.js
